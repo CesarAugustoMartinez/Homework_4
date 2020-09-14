@@ -11,9 +11,9 @@ var timerElem = document.querySelector("#timer");
 
 var questions = [
     {
-        title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"},
+    title: "Commonly used data types DO NOT include:",
+    choices: ["strings", "booleans", "alerts", "numbers"],
+    answer: "alerts"},
     {
     title: "What is the highest montain in the world",
     choices: ["Everest", "Cotopaxi", "Chimborazo", "Reventador"],
@@ -21,7 +21,6 @@ var questions = [
     }]
 
 var numQuestions = questions.length;
-var cont = 0;
 var totalSeconds = numQuestions * 20;
 var interval;
 
