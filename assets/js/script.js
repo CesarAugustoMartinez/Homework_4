@@ -6,8 +6,12 @@ var cardHeader = document.createElement("div");
 var cardBody = document.createElement("div");
 var cardTitle = document.createElement("h5");
 var cardText = document.createElement("p");
+var cardFooter = document.createElement("div");
 var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
+var listButtons;
+var index = 0;
+
 
 var questions = [
     {
@@ -37,6 +41,7 @@ cardText.setAttribute("class","card-text");
 cardText.textContent = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, est. Consequatur, consectetur! Soluta neque aut laboriosam facere debitis! Sed exercitationem officiis sapiente fuga voluptates dolor fugiat, inventore eos repellendus voluptas!";
 startButton.setAttribute("class","btn btn-primary");
 startButton.textContent = "Start Quiz";
+cardFooter.setAttribute("class","card-footer text-muted");
 
 // To create new elements to the document.
 
@@ -45,13 +50,12 @@ cardBody.appendChild(cardText);
 cardBody.appendChild(startButton);
 card.appendChild(cardHeader);
 card.appendChild(cardBody);
+card.appendChild(cardFooter);
 mainElem.append(card);
 
 startButton.addEventListener("click", generateQuestion);
 
 }
-
-startQuiz();
 
 function generateQuestion(){
     card.style.display = "none";
@@ -59,26 +63,80 @@ function generateQuestion(){
         timerElem.textContent = totalSeconds;
         totalSeconds--;
 
+        if (totalSeconds < 0){
+            alert("Time out");
+            clearInterval(interval);
+        }
+   
     }, 1000);
+    console.log(index);
 
-    // for (i in questions) {
-    //     var titleQuestion = document.createElement("h2");
-    //     var box = document.createElement("div");
-    //     console.log(questions[i].title);
-    //     titleQuestion.textContent = questions[i].title;
-    //     boxContainerElem.appendChild(titleQuestion);
-    //     boxContainerElem.appendChild(box);
-    //     for (j in questions[i].choices) {
-    //         var listOption = document.createElement("li");  
-    //         listOption.textContent = questions[i].choices[j];
-    //         listOption.setAttribute("data-index",j);
-    //         optionsElem.appendChild(listOption);
-    //         console.log(questions[i].choices[j]);  
-    //     }
- 
-    //   }
+    questionPage(index);  
+
+    
 
 } 
 
 
+function questionPage(index){ // Creating a form for each question.
+    clearDisplay(); 
+    card.setAttribute("class","card text-center");
+    cardHeader.setAttribute("class","card-header");
+    cardHeader.textContent= questions[index].title;
+    cardBody.setAttribute("class","card-body");
+    cardFooter.setAttribute("class","card-footer text-muted");
 
+    mainElem.append(card);
+    card.append(cardHeader);
+    card.append(cardBody);
+    card.append(cardFooter);
+    card.style.display = "block";
+    cardTitle.style.display = "none";
+    cardText.style.display = "none";
+    startButton.style.display = "none";
+    
+
+    for (j in questions[index].choices){
+        console.log("genera button");
+        var btnElem = document.createElement("button");
+        console.log(questions[index].choices[j]);
+        btnElem.setAttribute("class","list-group-item list-group-item-action btn-group-vertical");
+        btnElem.setAttribute("id",j);
+        btnElem.textContent = (parseInt(j) + 1) + ".- " + questions[index].choices[j];
+        console.log("hola");
+        cardBody.append(btnElem);
+    }
+
+    document.querySelectorAll('.list-group-item').forEach(buttonAnswer => {
+        buttonAnswer.addEventListener('click', event => {
+            event.preventDefault();
+          console.log(buttonAnswer.id);
+          console.log(questions[index].answer);
+          console.log(questions[index].choices[buttonAnswer.id]);
+
+          if (questions[index].answer === questions[index].choices[buttonAnswer.id]){
+              cardFooter.textContent = "Correct !"; 
+              index ++;
+
+              questionPage(index); 
+          }
+          else {
+              index ++;
+
+              cardFooter.textContent = "Wrong !";
+              questionPage(index); 
+          }
+        })
+        
+        
+    })
+
+}
+
+function clearDisplay() {
+    document.querySelectorAll('.list-group-item').forEach(item => {
+        item.style.display = "none";
+        });
+}
+
+startQuiz();
