@@ -11,7 +11,9 @@ var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
 var listButtons;
 var index = 0;
-var scores = [];
+var finalScores = [];
+var score;
+
 
 
 var questions = [ // Creating an array with all the question and answers
@@ -126,13 +128,6 @@ function clearDisplay() {
         });
 }
 
-// function wait(ms){
-//     var start = new Date().getTime();
-//     var end = start;
-//     while(end < start + ms) {
-//       end = new Date().getTime();
-//    }
-//   }
   
 function listener_click(){ // To active the event click for each button created.
     document.querySelectorAll('.list-group-item').forEach(buttonAnswer => {
@@ -161,12 +156,11 @@ function listener_click(){ // To active the event click for each button created.
 }  
 
 function userInfo(){
-    setTimeout(function(){
-        cardFooter.textContent = "";
-    },2000)
 
-        clearDisplay(); 
+    clearDisplay(); 
     // Setting attribute to the element 
+    clearInterval(interval);
+
     var divElem = document.createElement("div");
     var labelElem = document.createElement("label");
     var inputElem = document.createElement("input");
@@ -187,6 +181,7 @@ function userInfo(){
     labelElem.textContent = "Enter your initials:";
     submitButton.setAttribute("class","btn btn-primary mb-2");
     submitButton.setAttribute("type","button");
+    submitButton.setAttribute("id","btnSubmit");
     submitButton.textContent = "Submit";
    
     mainElem.append(card);
@@ -205,16 +200,34 @@ function userInfo(){
     cardBody.style.display = "block";
     cardText.style.display = "block";
     startButton.style.display = "none";
+    score = cardText.textContent;
 
-    submitButton.addEventListener("click", function (){
-        var initials = inputElem.value;
-        var score = cardText.textContent;
-        scores.push({"Initials":initials, "Score":score});
-        localStorage.setItem("scores", JSON.stringify(scores));
+   
+    submitButton.addEventListener("click", function(){
 
-    });
+        finalScores.push({"Initials":inputElem.value,"Score":score});
+        localStorage.setItem("FinalScores",JSON.stringify(finalScores));  
+        window.location.href = "../Homework_4/highScores.html";
+        // window.location.replace("./scores.html");
+      
+      });
+      
+
+
 }
 
-startQuiz();
+function initStore() {
+       // Parsing the JSON string to an object
+    finalScores = JSON.parse(localStorage.getItem("FinalScores"));
+}
+
+initStore();
+
+var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+
+if (currentPage === "index.html"){
+    startQuiz();
+}
+
 
 
