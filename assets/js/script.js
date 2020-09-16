@@ -216,6 +216,10 @@ function userInfo(){
 
 }
 
+function highScoreDisplay(){
+    
+}
+
 function initStore() {
        // Parsing the JSON string to an object
     finalScores = JSON.parse(localStorage.getItem("FinalScores"));
@@ -227,6 +231,9 @@ var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/")
 
 if (currentPage === "index.html"){
     startQuiz();
+}
+else {
+    highScoreDisplay();
 }
 
 
