@@ -11,6 +11,7 @@ var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
 var listButtons;
 var index = 0;
+var scores = [];
 
 
 var questions = [ // Creating an array with all the question and answers
@@ -181,9 +182,11 @@ function userInfo(){
     cardFooter.setAttribute("class","card-footer text-muted");
     divElem.setAttribute("class","form-group mx-sm-3 mb-2");
     labelElem.setAttribute("class","mt-2 mb-2");
+    inputElem.setAttribute("type","text");
     inputElem.setAttribute("class","form-control");
     labelElem.textContent = "Enter your initials:";
     submitButton.setAttribute("class","btn btn-primary mb-2");
+    submitButton.setAttribute("type","button");
     submitButton.textContent = "Submit";
    
     mainElem.append(card);
@@ -203,9 +206,15 @@ function userInfo(){
     cardText.style.display = "block";
     startButton.style.display = "none";
 
-    //submitButton.addEventListener("click", alert("new page"));
+    submitButton.addEventListener("click", function (){
+        var initials = inputElem.value;
+        var score = cardText.textContent;
+        scores.push({"Initials":initials, "Score":score});
+        localStorage.setItem("scores", JSON.stringify(scores));
 
+    });
 }
 
 startQuiz();
+
 
