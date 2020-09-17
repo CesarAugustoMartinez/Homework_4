@@ -18,14 +18,25 @@ var score;
 
 var questions = [ // Creating an array with all the question and answers
     {
-    title: "Commonly used data types DO NOT include:",
-    choices: ["strings", "booleans", "alerts", "numbers"],
-    answer: "alerts"},
+    title: "What is the HTML tag under which one can write the JavaScript code?",
+    choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
+    answer: "<script>"},
     {
-    title: "What is the highest montain in the world",
-    choices: ["Everest", "Cotopaxi", "Chimborazo", "Reventador"],
-    answer: "Everest" 
-    }]
+    title: "Which of the following is the correct syntax to display “GeeksforGeeks” in an alert box using JavaScript?",
+    choices: ["alertbox(“GeeksforGeeks”);", "msg(“GeeksforGeeks”);", "msgbox(“GeeksforGeeks”);", "alert(“GeeksforGeeks”);"],
+    answer: "alert(“GeeksforGeeks”);"}, 
+    {
+    title: "What is the correct syntax for referring to an external script called “geek.js”?",
+    choices: ["<script src=”geek.js”>", "<script href=”geek.js”>", "<script ref=”geek.js”>", "<script name=”geek.js”>"],
+    answer: "<script src=”geek.js”>"},
+    {
+    title: "Which of the following is not a reserved word in JavaScript?",
+    choices: ["interface", "throws", "program", "short"],
+    answer: "program"},
+    {
+    title: "How is the function called in JavaScript?",
+    choices: ["call Geekfunc();", "call function GeekFunc();", "Geekfunc();", "function Geekfunc();"],
+    answer: "Geekfunc();"}]
 
 var numQuestions = questions.length;
 var totalSeconds = numQuestions * 20;
@@ -36,12 +47,12 @@ function startQuiz(){ // To generate the first display for start the Quiz
 // Setting attribute to the element 
 card.setAttribute("class","card text-center");
 cardHeader.setAttribute("class","card-header");
-cardHeader.textContent = "CODE QUIZ";
+cardHeader.textContent = "JavaScript Quiz";
 cardBody.setAttribute("class","card-body");
 cardTitle.setAttribute("class","card-title");
 cardTitle.textContent = "Test Yourself";
 cardText.setAttribute("class","card-text");
-cardText.textContent = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, est. Consequatur, consectetur! Soluta neque aut laboriosam facere debitis! Sed exercitationem officiis sapiente fuga voluptates dolor fugiat, inventore eos repellendus voluptas!";
+cardText.textContent = "Following quiz provides Multiple Choice Questions related to JavaScript. You will have to read all the given answers and click over the correct answer.!";
 startButton.setAttribute("class","btn btn-primary");
 startButton.textContent = "Start Quiz";
 // cardFooter.setAttribute("class","card-footer text-muted");
