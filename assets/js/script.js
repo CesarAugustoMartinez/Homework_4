@@ -9,14 +9,18 @@ var cardText = document.createElement("p");
 var cardFooter = document.createElement("div");
 var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
+
+// Creating variables to control time, array, and interval. 
 var listButtons;
 var index = 0;
 var finalScores;
 var score;
+var numQuestions = questions.length;
+var totalSeconds = numQuestions * 20;
+var interval;
 
-
-
-var questions = [ // Creating an array with all the question and answers
+// Creating an array with all the question and answers
+var questions = [ 
     {
     title: "What is the HTML tag under which one can write the JavaScript code?",
     choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
@@ -38,52 +42,46 @@ var questions = [ // Creating an array with all the question and answers
     choices: ["call Geekfunc();", "call function GeekFunc();", "Geekfunc();", "function Geekfunc();"],
     answer: "Geekfunc();"}]
 
-var numQuestions = questions.length;
-var totalSeconds = numQuestions * 20;
-var interval;
 
-function startQuiz(){ // To generate the first display for start the Quiz
- 
-// Setting attribute to the element 
-card.setAttribute("class","card text-center");
-cardHeader.setAttribute("class","card-header");
-cardHeader.textContent = "JavaScript Quiz";
-cardBody.setAttribute("class","card-body");
-cardTitle.setAttribute("class","card-title");
-cardTitle.textContent = "Test Yourself";
-cardText.setAttribute("class","card-text");
-cardText.textContent = "Following quiz provides Multiple Choice Questions related to JavaScript. You will have to read all the given answers and click over the correct answer.!";
-startButton.setAttribute("class","btn btn-primary");
-startButton.textContent = "Start Quiz";
-// cardFooter.setAttribute("class","card-footer text-muted");
+function startQuiz(){ // To generate the first display for start the Quiz 
+    // Setting attribute to the element 
+    card.setAttribute("class","card text-center");
+    cardHeader.setAttribute("class","card-header");
+    cardHeader.textContent = "JavaScript Quiz";
+    cardBody.setAttribute("class","card-body");
+    cardTitle.setAttribute("class","card-title");
+    cardTitle.textContent = "Test Yourself";
+    cardText.setAttribute("class","card-text");
+    cardText.textContent = "Following quiz provides Multiple Choice Questions related to JavaScript. You will have to read all the given answers and click over the correct answer.!";
+    startButton.setAttribute("class","btn btn-primary");
+    startButton.textContent = "Start Quiz";
 
-// To create new elements to the document.
+    // To create new elements to the document.
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(startButton);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    card.appendChild(cardFooter);
+    mainElem.append(card);
 
-cardBody.appendChild(cardTitle);
-cardBody.appendChild(cardText);
-cardBody.appendChild(startButton);
-card.appendChild(cardHeader);
-card.appendChild(cardBody);
-card.appendChild(cardFooter);
-mainElem.append(card);
-
-startButton.addEventListener("click", generateQuestion);
+    //Setting the event click
+    startButton.addEventListener("click", generateQuestion);
 
 }
 
 function generateQuestion(){ // To generate elements during a specific time
     card.style.display = "none";
     interval = setInterval(function(){
-        timerElem.textContent = totalSeconds - 1;
+        timerElem.textContent = totalSeconds - 1 + " sec"
         totalSeconds--;
-
         if (totalSeconds < 0){
-            alert("Time out");
+            totalSeconds = 0;
+            alert("Time out!");
             userInfo();
             clearInterval(interval);
         }
     }, 1000);
-    console.log(index);
     if (index === 0){
         questionPage(index); 
     }    
@@ -91,11 +89,10 @@ function generateQuestion(){ // To generate elements during a specific time
 } 
 
 
-function questionPage(index){ // Creating a form for each question.
+function questionPage(index){ // Creating a card for each question.
      setTimeout(function(){
         cardFooter.textContent = "";
     },2000)
-
     if (index < questions.length){
         clearDisplay(); 
         card.setAttribute("class","card text-center");
@@ -103,7 +100,6 @@ function questionPage(index){ // Creating a form for each question.
         cardHeader.textContent= questions[index].title;
         cardBody.setAttribute("class","card-body");
         cardFooter.setAttribute("class","card-footer text-muted");
-
         mainElem.append(card);
         card.append(cardHeader);
         card.append(cardBody);
@@ -112,28 +108,20 @@ function questionPage(index){ // Creating a form for each question.
         cardTitle.style.display = "none";
         cardText.style.display = "none";
         startButton.style.display = "none";
-        
-
-        for (j in questions[index].choices){
-            
+        for (j in questions[index].choices){ // Reading values from the array to put into a new elements.
             var btnElem = document.createElement("button");
-            console.log(questions[index].choices[j]);
             btnElem.setAttribute("class","list-group-item list-group-item-action btn-group-vertical mt-1 border");
             btnElem.setAttribute("id",j);
             btnElem.textContent = (parseInt(j) + 1) + ".- " + questions[index].choices[j];
-            
             cardBody.append(btnElem);
         }
         listener_click(); // Calling a function to active the event click for each button created.
-        
-
     } else {
         userInfo();
-
    }
 }
 
-function clearDisplay() {
+function clearDisplay() { // To clear the card.
     document.querySelectorAll('.list-group-item').forEach(item => {
         item.style.display = "none";
         });
@@ -144,35 +132,25 @@ function listener_click(){ // To active the event click for each button created.
     document.querySelectorAll('.list-group-item').forEach(buttonAnswer => {
         buttonAnswer.addEventListener('click', event => {
         event.preventDefault();
-        console.log(buttonAnswer.id);
-        console.log(questions[index].answer);
-        console.log(questions[index].choices[buttonAnswer.id]);
-
-        if (questions[index].answer === questions[index].choices[buttonAnswer.id]){
+        if (questions[index].answer === questions[index].choices[buttonAnswer.id]){ // Condition to show on the screen if the answer is correct or wrong
             cardFooter.textContent = "Correct !"; 
             index ++;
-            console.log(index);
-            
         }
         else {
             index ++;
             totalSeconds = totalSeconds - 10;
-            console.log(index);
-            cardFooter.textContent = "Wrong !";
-    
+            cardFooter.textContent = "Wrong !";    
         }
         questionPage(index);
-
       })
     })
 }  
 
-function userInfo(){
-
+function userInfo(){ // Creating a new card asking to the user to enter its information.
     clearDisplay(); 
-    // Setting attribute to the element 
     clearInterval(interval);
-
+    
+    // Setting attribute to the element 
     var divElem = document.createElement("div");
     var labelElem = document.createElement("label");
     var inputElem = document.createElement("input");
@@ -214,18 +192,15 @@ function userInfo(){
     cardText.style.display = "block";
     startButton.style.display = "none";
     score = cardText.textContent;
-
-   
+  
     submitButton.addEventListener("click", function(){
-        console.log(score + inputElem.value);
         finalScores.push({"Initials":inputElem.value,"Score":score});
-
         localStorage.setItem("FinalScores",JSON.stringify(finalScores));  
         window.location.href = "../Homework_4/highScores.html";
       });
 }
 
-function highScoreDisplay(){
+function highScoreDisplay(){ // Creating a new card to show high scores.
 
     var backButton = document.createElement("button");
     var clearButton = document.createElement("button");
@@ -269,9 +244,7 @@ function highScoreDisplay(){
     card.appendChild(cardFooter);
     mainElem.append(card);
 
-    console.log(finalScores);
-
-    for (i=0; i < finalScores.length; i++){
+    for (i=0; i < finalScores.length; i++){ //Creating a table with the values from a array.
         var subTr = document.createElement("tr");
         var subTh = document.createElement("th");
         var subTd1 = document.createElement("td");
@@ -302,7 +275,7 @@ function initStore() {
 }
 
 initStore();
-var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1); // To validate what page is running.
 if (currentPage !== "highScores.html"){
     startQuiz();
 }
