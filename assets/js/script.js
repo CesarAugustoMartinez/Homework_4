@@ -11,7 +11,7 @@ var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
 var listButtons;
 var index = 0;
-var finalScores = [];
+var finalScores;
 var score;
 
 
@@ -63,7 +63,7 @@ startButton.addEventListener("click", generateQuestion);
 function generateQuestion(){ // To generate elements during a specific time
     card.style.display = "none";
     interval = setInterval(function(){
-        timerElem.textContent = totalSeconds;
+        timerElem.textContent = totalSeconds - 1;
         totalSeconds--;
 
         if (totalSeconds < 0){
@@ -145,6 +145,7 @@ function listener_click(){ // To active the event click for each button created.
         }
         else {
             index ++;
+            totalSeconds = totalSeconds - 10;
             console.log(index);
             cardFooter.textContent = "Wrong !";
     
@@ -173,6 +174,7 @@ function userInfo(){
     cardTitle.textContent = "Your final score is: ";
     cardText.setAttribute("class","card-text btn btn-primary btn-lg fa fa-question");
     cardText.textContent = totalSeconds;
+    timerElem.textContent = totalSeconds;
     cardFooter.setAttribute("class","card-footer text-muted");
     divElem.setAttribute("class","form-group mx-sm-3 mb-2");
     labelElem.setAttribute("class","mt-2 mb-2");
@@ -204,37 +206,97 @@ function userInfo(){
 
    
     submitButton.addEventListener("click", function(){
-
+        console.log(score + inputElem.value);
         finalScores.push({"Initials":inputElem.value,"Score":score});
+
         localStorage.setItem("FinalScores",JSON.stringify(finalScores));  
         window.location.href = "../Homework_4/highScores.html";
-        // window.location.replace("./scores.html");
-      
       });
-      
-
-
 }
 
 function highScoreDisplay(){
+
+    var backButton = document.createElement("button");
+    var clearButton = document.createElement("button");
+    var tableScores = document.createElement("table");
+    var tableHead = document.createElement("thead");
+    var tableTr = document.createElement("tr");
+    var thNumber = document.createElement("th");
+    var thInitials = document.createElement("th");
+    var thScore = document.createElement("th");
+    var tableBody = document.createElement("tbody");
+
+    card.setAttribute("class","card text-center");
+    cardHeader.setAttribute("class","card-header");
+    cardHeader.textContent = "HIGH SCORES";
+    cardBody.setAttribute("class","card-body");
     
+    backButton.setAttribute("class","btn btn-primary mr-2");
+    backButton.textContent = "Back";
+    clearButton.setAttribute("class","btn btn-primary ml-2");
+    clearButton.textContent = "Clear High Scores";
+    tableScores.setAttribute("class","table table-hover");
+    tableTr.setAttribute("class","text-center");
+    thNumber.setAttribute("class","col col-md-auto");
+    thNumber.textContent = "#";
+    thInitials.setAttribute("class","col col-md-auto");
+    thInitials.textContent = "Initial";
+    thScore.setAttribute("class","col col-md-auto");
+    thScore.textContent = "Score";
+
+    tableTr.appendChild(thNumber);
+    tableTr.appendChild(thInitials);
+    tableTr.appendChild(thScore);
+    tableHead.appendChild(tableTr);
+    tableScores.appendChild(tableBody);
+    tableScores.appendChild(tableHead);
+    cardBody.appendChild(tableScores);
+    cardBody.appendChild(backButton);
+    cardBody.appendChild(clearButton);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    card.appendChild(cardFooter);
+    mainElem.append(card);
+
+    console.log(finalScores);
+
+    for (i=0; i < finalScores.length; i++){
+        var subTr = document.createElement("tr");
+        var subTh = document.createElement("th");
+        var subTd1 = document.createElement("td");
+        var subTd2 = document.createElement("td");
+        subTh.textContent = i + 1;
+        subTd2.textContent = finalScores[i].Initials;
+        subTd1.textContent = finalScores[i].Score;
+        subTr.appendChild(subTh);
+        subTr.appendChild(subTd2);
+        subTr.appendChild(subTd1);
+        tableBody.appendChild(subTr);
+       }
+    backButton.addEventListener("click", function(){
+        window.location.href = "./index.html";
+    });
+    clearButton.addEventListener("click", function(){
+        localStorage.clear('FinalStores');
+        window.location.reload();
+    });
 }
 
+finalScores = [];
 function initStore() {
-       // Parsing the JSON string to an object
-    finalScores = JSON.parse(localStorage.getItem("FinalScores"));
+   // Parsing the JSON string to an object
+    if (localStorage.getItem("FinalScores") !== null){
+       finalScores = JSON.parse(localStorage.getItem("FinalScores"));
+    }    
 }
 
 initStore();
-
 var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-
 if (currentPage === "index.html"){
     startQuiz();
 }
 else {
     highScoreDisplay();
 }
-
 
 
