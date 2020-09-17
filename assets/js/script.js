@@ -303,7 +303,7 @@ function initStore() {
 
 initStore();
 var currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-if (currentPage === "index.html" || currentPage === ""){
+if (currentPage !== "highScores.html"){
     startQuiz();
 }
 else {
