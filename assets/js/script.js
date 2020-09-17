@@ -10,15 +10,6 @@ var cardFooter = document.createElement("div");
 var startButton = document.createElement("button");
 var timerElem = document.querySelector("#timer");
 
-// Creating variables to control time, array, and interval. 
-var listButtons;
-var index = 0;
-var finalScores;
-var score;
-var numQuestions = questions.length;
-var totalSeconds = numQuestions * 20;
-var interval;
-
 // Creating an array with all the question and answers
 var questions = [ 
     {
@@ -42,6 +33,14 @@ var questions = [
     choices: ["call Geekfunc();", "call function GeekFunc();", "Geekfunc();", "function Geekfunc();"],
     answer: "Geekfunc();"}]
 
+// Creating variables to control time, array, and interval. 
+var listButtons;
+var index = 0;
+var finalScores;
+var score;
+var numQuestions = questions.length;
+var totalSeconds = numQuestions * 20;
+var interval;
 
 function startQuiz(){ // To generate the first display for start the Quiz 
     // Setting attribute to the element 
