@@ -39,7 +39,6 @@ var index = 0;
 var finalScores;
 var score;
 var numQuestions = questions.length;
-console.log(numQuestions);
 var totalSeconds = numQuestions * 20;
 var interval;
 
