@@ -243,6 +243,7 @@ function highScoreDisplay(){ // Creating a new card to show high scores.
     card.appendChild(cardBody);
     card.appendChild(cardFooter);
     mainElem.append(card);
+    finalScores.sort(function(a, b){return b.Score - a.Score}); 
 
     for (i=0; i < finalScores.length; i++){ //Creating a table with the values from a array.
         var subTr = document.createElement("tr");

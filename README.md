@@ -19,7 +19,7 @@ Link : [Project Link](https://cesaraugustomartinez.github.io/Homework_4/)
 
 ## Description
 
-The goal of this project is generate a Quiz which provides multiple choice questions related to JavaScript. The user will have to read all the given answers and click over the correct answer. This app was builded using Javascript code to generate a dynamically HTML and CSS pages. 
+The goal of this project is generate a Quiz which provides multiple choice questions related to JavaScript. The user will have to read all the given options and click over the correct answer. This app was builded using Javascript code to generate a dynamically HTML and CSS pages. 
 
 ##### Technologies
 
@@ -88,7 +88,7 @@ function startQuiz(){ // To generate the first display for start the Quiz
 
 ## How To Use
 
-This web application has two webpages index.html and highScores.html. The index.html page has has a button to start the quiz. Then it will provide six questions with four answer each one. When the user click over the correct answer, It goes to the next question. Once asnwered all question, It will show a card to enter the user's initial. The User will have a link to look at a table with the scores. This app has some criterias described following: 
+This web application has two webpages index.html and highScores.html. The index.html page has a button to start the quiz. Then six questions will be presented with four answer each. When the user click the correct answer, the next question will be presented. After all questions have been answered. A card where the user enters his/her initials will be presented and user must click submit button to save the score. This app has some criterias described following: 
 
 - A timer stars when the user click start button.
 
