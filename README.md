@@ -99,9 +99,9 @@ This web application has two webpages index.html and highScores.html. The index.
  
 ## Screenshots
 
-- Button to start the Quiz
+- First card with a button to start the Quiz
 
-![picture](assets/images/ButtonStart.png)
+![picture](assets/images/displayStart.png)
 
 - Model Question 
 
