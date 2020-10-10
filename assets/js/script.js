@@ -195,7 +195,7 @@ function userInfo(){ // Creating a new card asking to the user to enter its info
     submitButton.addEventListener("click", function(){
         finalScores.push({"Initials":inputElem.value,"Score":score});
         localStorage.setItem("FinalScores",JSON.stringify(finalScores));  
-        window.location.href = "../Homework_4/highScores.html";
+        window.location.href = "../JavaScript_Quiz/highScores.html";
       });
 }
 
