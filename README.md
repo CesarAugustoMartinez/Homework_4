@@ -2,7 +2,7 @@
 
 ![picture](assets/images/javaScriptQuiz.png)
 
-Link : [Project Link](https://cesaraugustomartinez.github.io/Homework_4/)
+Link : [Project Link](https://cesaraugustomartinez.github.io/JavaScript_Quiz/)
 
 ---
 
